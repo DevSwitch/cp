@@ -1,5 +1,3 @@
-def srcdir = 'github.com/jakecoffman/cp'
-
 pipeline {
     agent {
         docker {
@@ -10,8 +8,8 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh "mkdir -p \$GOPATH/src/$srcdir"
-                sh "ln -s . \$GOPATH/src/$srcdir"
+                sh "mkdir -p \$GOPATH/src/github.com/jakecoffman"
+                sh "ln -s . \$GOPATH/src/github.com/jakecoffman/cp"
             }
         }
         stage('Dependencies') {

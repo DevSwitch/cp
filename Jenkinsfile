@@ -1,11 +1,19 @@
+def srcdir = 'github.com/jakecoffman/cp'
+
 pipeline {
     agent {
         docker {
-         image 'golang'
+            image 'golang'
         }
     }
 
     stages {
+        stage('Setup') {
+            steps {
+                sh "mkdir -p \$GOPATH/src/$srcdir"
+                sh "ln -s . \$GOPATH/src/$srcdir"
+            }
+        }
         stage('Dependencies') {
             steps {
                 sh 'go get ./...'

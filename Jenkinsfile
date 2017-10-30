@@ -1,3 +1,5 @@
+def src='\$GOPATH/src/github.com/jakecoffman/cp'
+
 pipeline {
     agent {
         docker {
@@ -9,22 +11,28 @@ pipeline {
         stage('Setup') {
             steps {
                 sh "mkdir -p \$GOPATH/src/github.com/jakecoffman"
-                sh "ln -s `pwd` \$GOPATH/src/github.com/jakecoffman/cp"
+                sh "ln -s `pwd` $src"
             }
         }
         stage('Dependencies') {
             steps {
-                sh 'go get ./...'
+                dir(src) {
+                    sh 'go get ./...'
+                }
             }
         }
         stage('Build') {
             steps {
-                sh 'go build ./...'
+                dir(src) {
+                    sh 'go build ./...'
+                }
             }
         }
         stage('Test') {
             steps {
-                sh 'go test ./...'
+                dir(src) {
+                    sh 'go test ./...'
+                }
             }
         }
     }

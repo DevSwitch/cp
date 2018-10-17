@@ -280,6 +280,12 @@ func (body *Body) Velocity() Vector {
 	return body.v
 }
 
+func (body *Body) AddVelocity(x, y float64) {
+	body.Activate()
+    body.v.X += float64(x)
+    body.v.Y += float64(y)
+}
+
 func (body *Body) SetVelocity(x, y float64) {
 	body.Activate()
 	body.v = Vector{x, y}
